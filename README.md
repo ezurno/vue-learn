@@ -31,22 +31,6 @@
 
 <br/>
 
-### 뷰 라우터 (Vue Router)
+### 목차
 
-> 뷰 라우터는 Vue.js 를 이용하여 싱글페이지 애플리케이션 (SPA) 을 구현 할 때 사용하는 Vue.js 의 공식 라우터
-
-<br/>
-
-### Router 란?
-
-> 일반적으로 네트워크 간에 데이터를 전송하는 장치
-
-따라서 뷰에서 말하는 라우터는 URL 에 따라 어떤 페이지를 보여줄지 `Mapping` 해주는 라이브러리
-
-(React 의 router 와 같은 개념)
-
-#### 설치방법
-
-```
-npm install vue-router
-```
+- [뷰 라우터 (Vue-Router) >>](src/docs/chater-01.md)

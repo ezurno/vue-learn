@@ -1,0 +1,115 @@
+### 뷰 라우터 (Vue Router)
+
+> 뷰 라우터는 Vue.js 를 이용하여 싱글페이지 애플리케이션 (SPA) 을 구현 할 때 사용하는 Vue.js 의 공식 라우터
+
+<br/>
+
+### Router 란?
+
+> 일반적으로 네트워크 간에 데이터를 전송하는 장치
+
+따라서 뷰에서 말하는 라우터는 URL 에 따라 어떤 페이지를 보여줄지 `Mapping` 해주는 라이브러리
+
+(React 의 router 와 같은 개념)
+
+#### 설치방법
+
+```
+npm install vue-router
+```
+
+#### 사용방법
+
+1. router > index.js 파일 생성
+
+2. 파일 내 code 작성
+
+```javascript
+import HomeView from '@/views/HomeView.vue'
+import AboutView from '@/views/AboutView.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+
+const routes = [
+  {
+    path: '/',
+    component: HomeView
+  },
+  {
+    path: '/about',
+    component: AboutView
+  }
+]
+
+/**
+ * router 를 생성한다.
+ * 해당 router 에는 object 를 갖는데
+ * 해당 object 는 history 와 routes 를 갖는다.
+ *
+ * history 로는 주로 createWebHistory 의 반환값을 받음
+ * => 매개변수로 준 router 로 부터의 history
+ * routes 는 라우터 목록
+ */
+const router = createRouter({
+  history: createWebHistory('/'),
+  routes
+})
+
+// 외부로
+export default router
+```
+
+3. 해당 파일을 ../main.js 에 등록
+
+```javascript
+/**
+ * 해당하는 createApp 에 method-chain 을 걸어 use 로 route 값을 등록
+ */
+createApp(App).use(router).mount('#app')
+```
+
+4. layouts/TheView.vue 에서 등록 (RouterView)
+
+RouterView 는 vue 에서 제공하는 router 등록 방법
+
+```vue
+<template>
+  <main>
+    <div class="container py-4">
+      <!-- RouterView 를 사용하면 해당 routes 에 알맞는 rendering 이 자동으로 적용  -->
+      <RouterView></RouterView>
+    </div>
+  </main>
+</template>
+```
+
+5. 또한 vue 에서는 Next 처럼 자체적인 `<a/>` 를 제공한다.
+
+```html
+<router-link class="nav-link active" to="/">Home</router-link>
+<!-- or -->
+<RouterLink class="nav-link active" to="/">Home</RouterLink>
+```
+
+6. 라우터 내의 정보를 쓰려면 {$route} 로 불러다 쓸 수 있다.
+
+```vue
+<template>
+  <div>
+    <h2>ABOUT VIEW</h2>
+    <p>{{ $route.path }}</p>
+  </div>
+</template>
+```
+
+```vue
+<script setup>
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+console.log(route)
+</script>
+```
+
+이런식으로도 출력이 가능하다.
+
+[<< 이전 페이지로 돌아가기](../../README.md)
