@@ -1,10 +1,10 @@
 ## 🍀 [Vue 3] Vite 환경으로 Vue 3 배워보기
 
-프로젝트 투입 3주 전.. Vue 에서 React 로 migration 하기 위한 사전 몸 풀기 겸 학습 repo.
+프로젝트 투입 3주 전.. `Vue` 에서 `React` 로 `migration` 하기 위한 사전 몸 풀기 겸 학습 repo.
 
 <br/>
 
-## 설치환경
+### 설치환경
 
 1. vite
 2. vue
