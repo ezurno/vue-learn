@@ -25,6 +25,9 @@
             <li class="nav-item">
               <router-link class="nav-link" active-class="active" to="/posts">게시글</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" active-class="active" to="/nested">Nested</router-link>
+            </li>
           </ul>
           <div class="d-flex" role="search">
             <button class="btn btn-outline-dark" type="button" @click="goPage">글쓰기</button>

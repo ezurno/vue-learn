@@ -145,3 +145,39 @@ defineProps({
 3. 반드시 필요한 값일 경우 required: true
 
 [<< 이전 페이지로 돌아가기](../../README.md)
+
+<br/>
+
+### 404 Not-Found
+
+Vue.js 는 page-routing 을 할 때 정규식(regex) 을 사용할 수 있는데
+
+해당 정규식 사용방법을 통해 404 page, 중첩 route 에 관하여 라우팅 할 수 있다.
+
+![404-notfound-image](./images/image-01.png)
+
+```vue
+const routes = [ { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundView } ]
+```
+
+<br/>
+
+### 중첩된 라우터 (Nested Router)
+
+> 기존에 있던 component 를 중첩하여 routing 처리 할 때 사용
+
+```vue
+{ path: '/nested', name: 'Nested', component: NestedView, children: [ { path: 'one', name:
+'NestedOne', component: NestedOneView }, { path: 'two', name: 'NestedTwo', component: NestedTwoView
+} ] },
+```
+
+1. 중첩 할 페이지의 route 의 children 으로 구분하여
+2. 해당하는 페이지의 path 정보를 똑같이 추가한다
+3. children 의 path 에 `/` 를 추가하면 절대 경로가 되므로 주의
+
+<br/>
+
+### router.replace
+
+> `router.push` 와 같은 역할을 하지만 유일한 차이는 새로운 히스토리 항목에 추가하지 않고 탐색함
