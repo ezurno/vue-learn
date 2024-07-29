@@ -144,8 +144,6 @@ defineProps({
 2. 타입이 여러가지 일 때는 배열의 형태로 나타낸다.
 3. 반드시 필요한 값일 경우 required: true
 
-[<< 이전 페이지로 돌아가기](../../README.md)
-
 <br/>
 
 ### 404 Not-Found
@@ -181,3 +179,14 @@ const routes = [ { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFou
 ### router.replace
 
 > `router.push` 와 같은 역할을 하지만 유일한 차이는 새로운 히스토리 항목에 추가하지 않고 탐색함
+
+```vue
+<script>
+router.push({ path: '/home', replace: true })
+router.replace({ path: '/home' })
+</script>
+```
+
+<br/>
+
+[<< 이전 페이지로 돌아가기](../../README.md)
