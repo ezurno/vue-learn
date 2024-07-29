@@ -112,4 +112,36 @@ console.log(route)
 
 이런식으로도 출력이 가능하다.
 
+<br/>
+
+### active-class
+
+> router 의 link 에 class 를 추가하고 싶을 때 사용하는 속성
+>
+> default 값 === 'router-link-active'
+
+<br/>
+
+### page 내 props 정의하기
+
+`vue` 에서는 페이지 내에 `props` 를 등록하기 위해선 `defineProps()` 를 사용해 주어야한다.
+
+```vue
+<script setup>
+defineProps({
+  title: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: [String, Date, Number]
+  }
+})
+</script>
+```
+
+1. 타입을 명시한다.
+2. 타입이 여러가지 일 때는 배열의 형태로 나타낸다.
+3. 반드시 필요한 값일 경우 required: true
+
 [<< 이전 페이지로 돌아가기](../../README.md)

@@ -17,27 +17,32 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <router-link class="nav-link active" to="/">Home</router-link>
+              <router-link class="nav-link" active-class="active" to="/">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/about">About</router-link>
+              <router-link class="nav-link" active-class="active" to="/about">About</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" active-class="active" to="/posts">게시글</router-link>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          <div class="d-flex" role="search">
+            <button class="btn btn-outline-dark" type="button" @click="goPage">글쓰기</button>
+          </div>
         </div>
       </div>
     </nav>
   </header>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goPage = () => {
+  router.push('/posts/create')
+}
+</script>
 
 <style lang="scss" scoped></style>

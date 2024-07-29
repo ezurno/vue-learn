@@ -15,4 +15,5 @@
 
 ### 목차
 
-- [뷰 라우터 (Vue-Router) >>](src/docs/chater-01.md)
+- [기본 사용법 >>](src/docs//chapter-00.md)
+- [뷰 라우터 (Vue-Router) >>](src/docs/chapter-01.md)
