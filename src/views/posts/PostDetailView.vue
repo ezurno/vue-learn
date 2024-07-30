@@ -31,7 +31,7 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
 const props = defineProps({
-  id: Number
+  id: [Number, String]
 })
 
 const router = useRouter()
