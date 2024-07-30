@@ -110,3 +110,44 @@ const props = defineprops({
 })
 </script>
 ```
+
+<br/>
+
+### computed 함수 사용하기
+
+> vue 에서는 특정 계산을 실행할 때 computed 함수를 사용해 값을 초기화 한다.
+
+1. 반응형 시스템으로 해당 계산 내에 있는 값이 변화하였을 때를 보고있음
+2. 변화를 감지했을 때 계산을 필요한 경우에만 실행
+3. 따라서 기본적으로 캐싱 처리를 한다. (성능의 이점이 있다)
+
+```vue
+<script>
+const pageCount = computed(() => Math.ceil(totalCount.value / params.value._limit))
+</script>
+```
+
+<br/>
+
+### watchEffect 를 활용하기
+
+> vue 에서는 react 의 useEffect 처럼 사용할 수 있는 watchEffect 가 존재한다.
+
+1. 특정 반응형 값이 변경 되었을 때
+2. 해당하는 함수에 작성 된 매개함수를 다시 실행 시킨다
+3. 또한 초기에 한번 실행 되기 때문에 유의해서 사용한다
+
+```vue
+<script>
+const fetchPosts = async () => {
+  try {
+    const { data, headers } = await getPosts(params.value)
+    posts.value = data
+    totalCount.value = headers['x-total-count']
+  } catch (error) {
+    console.error(error)
+  }
+}
+watchEffect(fetchPosts)
+</script>
+```
