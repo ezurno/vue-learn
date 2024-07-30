@@ -13,7 +13,7 @@ export function createPost(data) {
 }
 
 export function updatePost(id, data) {
-  return postsInstance.put(`/${id}`, data)
+  return postsInstance.patch(`/${id}`, data)
 }
 
 export function deletePost(id) {
