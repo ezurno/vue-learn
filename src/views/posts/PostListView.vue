@@ -22,17 +22,22 @@
 
 <script setup>
 import PostItem from '@/components/posts/PostItem.vue'
-import { getPosts } from '@/apis/posts'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import PostDetailView from '@/views/posts/PostDetailView.vue'
 import AppCard from '@/components/AppCard.vue'
+import { getPosts } from '@/apis/posts'
 
 const router = useRouter()
 const posts = ref([])
 
-const fetchPosts = () => {
-  posts.value = getPosts()
+const fetchPosts = async () => {
+  try {
+    const { data } = await getPosts()
+    posts.value = data
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 const goPage = (id) => {
