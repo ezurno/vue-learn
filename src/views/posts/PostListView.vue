@@ -11,9 +11,27 @@
           :content="item.content"
           :createdAt="item.createdAt"
           @click="goPage(item.id)"
+          @modal="openModal(item)"
         />
       </template>
     </app-grid>
+
+    <app-modal :show="show" title="게시글" @close="closeModal">
+      <template #default>
+        <div class="row g-3">
+          <div class="col-3 text-muted">제목</div>
+          <div class="col-9">{{ modalTitle }}</div>
+          <div class="col-3 text-muted">내용</div>
+          <div class="col-9">{{ modalContent }}</div>
+          <div class="col-3 text-muted">등록일</div>
+          <div class="col-9">{{ modalCreatedAt }}</div>
+        </div>
+      </template>
+      <template #actions>
+        <button type="button" class="btn btn-secondary" @click="closeModal">닫기</button>
+      </template>
+    </app-modal>
+
     <app-pagination
       :current-page="params._page"
       :page-count="pageCount"
@@ -35,6 +53,7 @@ import { computed, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import PostDetailView from '@/views/posts/PostDetailView.vue'
 import AppPagination from '@/components/AppPagination.vue'
+import AppModal from '@/components/AppModal.vue'
 import AppCard from '@/components/AppCard.vue'
 import AppGrid from '@/components/AppGrid.vue'
 import PostFilter from '@/components/posts/PostFilter.vue'
@@ -74,6 +93,23 @@ const goPage = (id) => {
 }
 
 watchEffect(fetchPosts)
+
+// modal
+const show = ref(false)
+const modalTitle = ref('')
+const modalContent = ref('')
+const modalCreatedAt = ref('')
+
+const openModal = ({ title, content, createdAt }) => {
+  show.value = true
+  modalTitle.value = title
+  modalContent.value = content
+  modalCreatedAt.value = createdAt
+}
+
+const closeModal = () => {
+  show.value = false
+}
 </script>
 
 <style lang="scss" scoped></style>
