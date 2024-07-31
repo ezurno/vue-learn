@@ -52,8 +52,8 @@ const typeStyle = (type) => (type === 'error' ? 'alert-danger' : 'alert-primary'
   right: 10px;
 }
 
-.v-enter-from,
-v-leave-to {
+.slide-enter-from,
+slide-leave-to {
   opacity: 0;
   transform: translateY(-30px);
 }
@@ -63,8 +63,8 @@ slide-leave-active {
   transition: all 0.5s ease;
 }
 
-v-enter-to,
-v-leave-from {
+slide-enter-to,
+slide-leave-from {
   opacity: 1;
   transform: translateY(0px);
 }

@@ -28,4 +28,29 @@
 
 <br/>
 
+#### Teleport
+
+> vue 에서 제공하는 내장 기술로 하위 컴포넌트를 특정 위치로 재위치 시켜주는 역할을 함
+
+1. `modal` 을 만들때 주로 사용함
+2. 이동할 곳을 `to` props 에 작성
+
+```vue
+<template>
+  <teleport to="#modal">
+    <Modal />
+  </teleport>
+</template>
+```
+
+```html
+<body>
+  <div id="app"></div>
+  <div id="modal"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+```
+
+![modal-image](./images/image-02.png)
+
 [<< 이전 페이지로 돌아가기](../../README.md)
