@@ -17,3 +17,6 @@
 
 - [기본 사용법 >>](src/docs//chapter-00.md)
 - [뷰 라우터 (Vue-Router) >>](src/docs/chapter-01.md)
+- [뷰에서의 Hash, History >>](src/docs/chapter-02.md)
+- [뷰 컴포넌트 분리하기 >>](src/docs/chapter-03.md)
+- [뷰 트랜지션 (Vue-Transition) >>](src/docs/chapter-04.md)

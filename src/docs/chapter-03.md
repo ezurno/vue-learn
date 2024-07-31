@@ -89,3 +89,7 @@ const isNextPage = computed(() => {
 
 <style lang="scss" scoped></style>
 ```
+
+<br/>
+
+[<< 이전 페이지로 돌아가기](../../README.md)
