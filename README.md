@@ -19,4 +19,5 @@
 - [뷰 라우터 (Vue-Router) >>](src/docs/chapter-01.md)
 - [뷰에서의 Hash, History >>](src/docs/chapter-02.md)
 - [뷰 컴포넌트 분리하기 >>](src/docs/chapter-03.md)
-- [뷰 트랜지션 (Vue-Transition) >>](src/docs/chapter-04.md)
+- [뷰 트랜지션과 텔레포트 (Transition & Teleport) >>](src/docs/chapter-04.md)
+- [뷰 플러그인 (Plugins) >>](src/docs//chapter-05.md)
