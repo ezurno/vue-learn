@@ -21,3 +21,4 @@
 - [뷰 컴포넌트 분리하기 >>](src/docs/chapter-03.md)
 - [뷰 트랜지션과 텔레포트 (Transition & Teleport) >>](src/docs/chapter-04.md)
 - [뷰 플러그인 (Plugins) >>](src/docs//chapter-05.md)
+- [뷰 디렉티브 (View-Directive) >>](src/docs//chapter-06.md)

@@ -45,9 +45,9 @@ import PostItem from '@/components/posts/PostItem.vue'
 import { computed, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import PostDetailView from '@/views/posts/PostDetailView.vue'
-import AppPagination from '@/components/AppPagination.vue'
-import AppCard from '@/components/AppCard.vue'
-import AppGrid from '@/components/AppGrid.vue'
+import AppPagination from '@/components/app/AppPagination.vue'
+import AppCard from '@/components/app/AppCard.vue'
+import AppGrid from '@/components/app/AppGrid.vue'
 import PostFilter from '@/components/posts/PostFilter.vue'
 import PostModal from '@/components/posts/PostModal.vue'
 import { getPosts } from '@/apis/posts'
@@ -59,7 +59,7 @@ const params = ref({
   _order: 'desc',
   _page: 1, // 현재 페이지
   _limit: 3,
-  title_like: ''
+  title_like: null
 })
 // pagination
 const totalCount = ref(0)

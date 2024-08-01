@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import AppModal from '@/components/AppModal.vue'
+import AppModal from '@/components/app/AppModal.vue'
 import { computed } from 'vue'
 
 const props = defineProps({

@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import AppCard from '@/components/AppCard.vue'
+import AppCard from '@/components/app/AppCard.vue'
 defineProps({
   title: {
     type: String,
