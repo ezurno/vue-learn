@@ -16,6 +16,9 @@ import PostForm from '@/components/posts/PostForm.vue'
 import { createPost } from '@/apis/posts'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAlert } from '@/composables/alert'
+
+const { vAlert, vSuccess } = useAlert()
 
 const router = useRouter()
 const form = ref({
@@ -29,9 +32,12 @@ const save = async () => {
       ...form.value,
       createdAt: String(Date.now())
     })
-    router.push({ name: 'PostList' })
+
+    goListPage()
+    vSuccess('등록이 완료되었습니다.')
   } catch (error) {
     console.error(error)
+    vAlert(error.messages)
   }
 }
 

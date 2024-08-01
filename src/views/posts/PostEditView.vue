@@ -10,8 +10,7 @@
         <button class="btn btn-primary">수정</button>
       </template>
     </post-form>
-    <!-- <app-alert :show="showAlert" :message="alertMessage" :type="alertType" /> -->
-    <app-alert :items="alerts" />
+    {{ alerts }}
   </div>
 </template>
 
@@ -20,7 +19,9 @@ import { getPostById, updatePost } from '@/apis/posts'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import PostForm from '@/components/posts/PostForm.vue'
-import AppAlert from '@/components/app/AppAlert.vue'
+import { useAlert } from '@/composables/alert'
+
+const { alerts, vAlert, vSuccess } = useAlert()
 
 const route = useRoute()
 const router = useRouter()
@@ -56,8 +57,8 @@ const goDetailPage = () => {
 const edit = async () => {
   try {
     await updatePost(id, { ...form.value })
-    // goDetailPage()
-    vAlert('수정이 완료되었습니다.', 'success')
+    vSuccess('수정이 완료되었습니다.')
+    goDetailPage()
   } catch (error) {
     console.error(error)
     vAlert(error.message)
@@ -65,24 +66,6 @@ const edit = async () => {
 }
 
 fetchPost()
-
-// alert
-// const showAlert = ref(false)
-// const alertMessage = ref('')
-// const alertType = ref('')
-
-const alerts = ref([])
-
-const vAlert = (message, type = 'error') => {
-  alert.value.push({ message, type })
-  // showAlert.value = true
-  // alertMessage.value = message
-  // alertType.value = type
-  setTimeout(() => {
-    // showAlert.value = false
-    alerts.value.shift()
-  }, 2000)
-}
 </script>
 
 <style lang="scss" scoped></style>
