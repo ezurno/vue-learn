@@ -1,45 +1,16 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "제목1",
-      "content": "내용1",
-      "createdAt": "2020-01-01"
+      "title": "마 테스트다",
+      "content": "좋다 테스트\n잘해봐라잇",
+      "createdAt": 1722492534963,
+      "id": 1
     },
     {
-      "id": 3,
-      "title": "제목3",
-      "content": "내용3",
-      "createdAt": "2020-03-03"
-    },
-    {
-      "id": 4,
-      "title": "제목4",
-      "content": "내용4",
-      "createdAt": "2020-04-04"
-    },
-    {
-      "id": 5,
-      "title": "제목5",
-      "content": "내용5",
-      "createdAt": "2020-05-05"
-    },
-    {
-      "id": 6,
-      "title": "제목6",
-      "content": "내용6",
-      "createdAt": "2020-06-06"
-    },
-    {
-      "title": "제목7zz",
-      "content": "내용7",
-      "id": 7
-    },
-    {
-      "id": 8,
-      "title": "제목8zz",
-      "content": "내용8ffdd\n",
-      "createdAt": "2020-08-08"
+      "title": "다시 한번 슛",
+      "content": "다시 한번 슛",
+      "createdAt": "1722492631608",
+      "id": 2
     }
   ]
 }

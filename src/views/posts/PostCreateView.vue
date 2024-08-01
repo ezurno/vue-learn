@@ -27,7 +27,7 @@ const save = async () => {
   try {
     await createPost({
       ...form.value,
-      createdAt: Date.now()
+      createdAt: String(Date.now())
     })
     router.push({ name: 'PostList' })
   } catch (error) {
