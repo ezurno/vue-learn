@@ -1,112 +1,16 @@
 {
   "posts": [
     {
-      "title": "마 테스트다",
-      "content": "좋다 테스트\n잘해봐라잇",
-      "createdAt": 1722492534963,
+      "title": "TEST",
+      "content": "테스트 드가자",
+      "createdAt": "1722564330650",
       "id": 1
     },
     {
-      "title": "다시 한번 슛",
-      "content": "다시 한번 슛",
-      "createdAt": "1722492631608",
-      "id": 2
-    },
-    {
-      "title": "dpdpdpdpdp",
-      "content": "dpdpdpd",
-      "createdAt": "1722496916500",
-      "id": 3
-    },
-    {
-      "title": "zxcadeㅋㅋㅋffsdfsffsfaa",
-      "content": "ㅋㅇㄹsdfsdfadadf",
-      "createdAt": "1722496970924",
-      "id": 4
-    },
-    {
-      "title": "ffffㄹㄹㅋㅋㅋㄴㅇㄹ",
-      "content": "ffff",
-      "createdAt": "1722497170699",
-      "id": 5
-    },
-    {
       "title": "ㄴㅇㄹ",
-      "content": "ㄹㄹㄹ",
-      "createdAt": "1722498021422",
-      "id": 6
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498033940",
-      "id": 7
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498034606",
-      "id": 8
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498034833",
-      "id": 9
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498035019",
-      "id": 10
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498035179",
-      "id": 11
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498035352",
-      "id": 12
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498035526",
-      "id": 13
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498035687",
-      "id": 14
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498035846",
-      "id": 15
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498036033",
-      "id": 16
-    },
-    {
-      "title": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      "content": "ㄹㄹ",
-      "createdAt": "1722498040956",
-      "id": 17
-    },
-    {
-      "title": "테스트 해보자",
-      "content": "굿굿",
-      "createdAt": "1722498431471",
-      "id": 18
+      "content": "ㄴㅇㄹ Twjd\n",
+      "createdAt": "1722566496667",
+      "id": 3
     }
   ]
 }

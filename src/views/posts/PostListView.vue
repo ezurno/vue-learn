@@ -4,17 +4,23 @@
     <hr class="my-4" />
     <post-filter v-model:title="params.title_like" v-model:limit="params._limit" />
     <hr class="my-4" />
-    <app-grid :items="posts">
-      <template v-slot="{ item }">
-        <post-item
-          :title="item.title"
-          :content="item.content"
-          :createdAt="item.createdAt"
-          @click="goPage(item.id)"
-          @modal="openModal(item)"
-        />
-      </template>
-    </app-grid>
+
+    <app-loading v-if="loading" />
+    <app-error :message="error.message" v-else-if="error" />
+
+    <template v-else>
+      <app-grid :items="posts">
+        <template v-slot="{ item }">
+          <post-item
+            :title="item.title"
+            :content="item.content"
+            :createdAt="item.createdAt"
+            @click="goPage(item.id)"
+            @modal="openModal(item)"
+          />
+        </template>
+      </app-grid>
+    </template>
 
     <teleport to="#modal">
       <post-modal
@@ -51,6 +57,8 @@ import AppGrid from '@/components/app/AppGrid.vue'
 import PostFilter from '@/components/posts/PostFilter.vue'
 import PostModal from '@/components/posts/PostModal.vue'
 import { getPosts } from '@/apis/posts'
+import AppLoading from '@/components/app/AppLoading.vue'
+import AppError from '@/components/app/AppError.vue'
 
 const router = useRouter()
 const posts = ref([])
@@ -61,17 +69,24 @@ const params = ref({
   _limit: 3,
   title_like: null
 })
+const error = ref(null)
+const loading = ref(false)
+
 // pagination
 const totalCount = ref(0)
 const pageCount = computed(() => Math.ceil(totalCount.value / params.value._limit))
 
 const fetchPosts = async () => {
   try {
+    loading.value = true
     const { data, headers } = await getPosts(params.value)
     posts.value = data
     totalCount.value = headers['x-total-count']
-  } catch (error) {
-    console.error(error)
+  } catch (err) {
+    console.error(err)
+    error.value = err
+  } finally {
+    loading.value = false
   }
 }
 
