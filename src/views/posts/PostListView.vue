@@ -48,7 +48,7 @@
 
 <script setup>
 import PostItem from '@/components/posts/PostItem.vue'
-import { computed, ref, watchEffect } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import PostDetailView from '@/views/posts/PostDetailView.vue'
 import AppPagination from '@/components/app/AppPagination.vue'
@@ -56,12 +56,13 @@ import AppCard from '@/components/app/AppCard.vue'
 import AppGrid from '@/components/app/AppGrid.vue'
 import PostFilter from '@/components/posts/PostFilter.vue'
 import PostModal from '@/components/posts/PostModal.vue'
-import { getPosts } from '@/apis/posts'
+// import { getPosts } from '@/apis/posts'
 import AppLoading from '@/components/app/AppLoading.vue'
 import AppError from '@/components/app/AppError.vue'
+import { useAxios } from '@/hooks/useAxios'
 
 const router = useRouter()
-const posts = ref([])
+// const posts = ref([])
 const params = ref({
   _sort: 'createdAt',
   _order: 'desc',
@@ -69,26 +70,31 @@ const params = ref({
   _limit: 3,
   title_like: null
 })
-const error = ref(null)
-const loading = ref(false)
+// const error = ref(null)
+// const loading = ref(false)
+const {
+  data: posts,
+  error,
+  loading,
+  response: totalCount
+} = useAxios('/posts', { method: 'get', params })
 
 // pagination
-const totalCount = ref(0)
 const pageCount = computed(() => Math.ceil(totalCount.value / params.value._limit))
 
-const fetchPosts = async () => {
-  try {
-    loading.value = true
-    const { data, headers } = await getPosts(params.value)
-    posts.value = data
-    totalCount.value = headers['x-total-count']
-  } catch (err) {
-    console.error(err)
-    error.value = err
-  } finally {
-    loading.value = false
-  }
-}
+// const fetchPosts = async () => {
+//   try {
+//     loading.value = true
+//     const { data, headers } = await getPosts(params.value)
+//     posts.value = data
+//     totalCount.value = headers['x-total-count']
+//   } catch (err) {
+//     console.error(err)
+//     error.value = err
+//   } finally {
+//     loading.value = false
+//   }
+// }
 
 const goPage = (id) => {
   // router.push(`/posts/${id}`)
@@ -100,7 +106,7 @@ const goPage = (id) => {
   })
 }
 
-watchEffect(fetchPosts)
+// watchEffect(fetchPosts)
 
 // modal
 const show = ref(false)
