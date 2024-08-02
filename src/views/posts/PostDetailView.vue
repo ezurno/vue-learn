@@ -35,49 +35,37 @@
 </template>
 
 <script setup>
-import { deletePost, getPostById } from '@/apis/posts'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
 import AppLoading from '@/components/app/AppLoading.vue'
 import AppError from '@/components/app/AppError.vue'
+import { useAxios } from '@/hooks/useAxios'
+import { useAlert } from '@/composables/alert'
 
-const error = ref(null)
-const loading = ref(false)
-
-const removeError = ref(null)
-const removeLoading = ref(false)
+const { vAlert, vSuccess } = useAlert()
+const router = useRouter()
 
 const props = defineProps({
   id: [Number, String]
 })
-
-const router = useRouter()
-const post = ref({
-  title: null,
-  content: null,
-  createdAt: null
-})
-
-const fetchPost = async () => {
-  try {
-    loading.value = true
-    const { data } = await getPostById(props.id)
-    // console.log(props.id)
-    // 객체를 참조하고 있으므로 값이 변동 되어도 함께 변동 됨
-    setPost(data)
-  } catch (err) {
-    console.error(err)
-    error.value = err
-  } finally {
-    loading.value = false
+const { error, loading, data: post } = useAxios(`/posts/${props.id}`)
+const {
+  error: removeError,
+  loading: removeLoading,
+  execute
+} = useAxios(
+  `/posts/${props.id}`,
+  { method: 'delete' },
+  {
+    immediate: false,
+    onSuccess: () => {
+      vSuccess('삭제가 완료되었습니다.')
+      goListPage()
+    },
+    onError: (err) => {
+      vAlert(err.message)
+    }
   }
-}
-
-const setPost = ({ title, content, createdAt }) => {
-  post.value.title = title
-  post.value.content = content
-  post.value.createdAt = createdAt
-}
+)
 
 const goListPage = () => {
   router.push({ name: 'PostList' })
@@ -87,20 +75,9 @@ const goEditPage = () => {
 }
 
 const remove = async () => {
-  try {
-    removeLoading.value = true
-    if (!confirm('삭제하시겠습니까?')) return
-    await deletePost(props.id)
-    goListPage()
-  } catch (err) {
-    console.error(err)
-    removeError.value = err
-  } finally {
-    removeLoading.value = false
-  }
+  if (!confirm('삭제하시겠습니까?')) return
+  execute()
 }
-
-fetchPost()
 </script>
 
 <style lang="scss" scoped></style>

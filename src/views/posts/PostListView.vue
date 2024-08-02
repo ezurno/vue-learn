@@ -62,7 +62,6 @@ import AppError from '@/components/app/AppError.vue'
 import { useAxios } from '@/hooks/useAxios'
 
 const router = useRouter()
-// const posts = ref([])
 const params = ref({
   _sort: 'createdAt',
   _order: 'desc',
@@ -70,34 +69,12 @@ const params = ref({
   _limit: 3,
   title_like: null
 })
-// const error = ref(null)
-// const loading = ref(false)
-const {
-  data: posts,
-  error,
-  loading,
-  response: totalCount
-} = useAxios('/posts', { method: 'get', params })
+const { data: posts, error, loading, response: totalCount } = useAxios('/posts', { params })
 
 // pagination
 const pageCount = computed(() => Math.ceil(totalCount.value / params.value._limit))
 
-// const fetchPosts = async () => {
-//   try {
-//     loading.value = true
-//     const { data, headers } = await getPosts(params.value)
-//     posts.value = data
-//     totalCount.value = headers['x-total-count']
-//   } catch (err) {
-//     console.error(err)
-//     error.value = err
-//   } finally {
-//     loading.value = false
-//   }
-// }
-
 const goPage = (id) => {
-  // router.push(`/posts/${id}`)
   router.push({
     name: 'PostDetail',
     params: {
@@ -105,8 +82,6 @@ const goPage = (id) => {
     }
   })
 }
-
-// watchEffect(fetchPosts)
 
 // modal
 const show = ref(false)
