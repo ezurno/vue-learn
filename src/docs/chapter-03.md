@@ -1,95 +1,68 @@
-### 공통 컴포넌트 분리하기
+## 클래스와 스타일 바인딩
 
-> vue 에서는 공통컴포넌트로 분리할 때 독특한 방식으로 분리한다
+### HTML 클래스 바인딩
 
-1. `app-grid` 에 items 로 posts 를 전달
-2. 해당하는 items 의 item 을 v-slot 으로 전달
-3. v-slot 은 app-grid 내에서 각각 slot 으로 해당 컴포넌트가 들어갈 곳을 정의
+#### 객체 바인딩
+
+클래스를 동적으로 바인딩 하기 위해서는 `:class` 를 사용할 수 있음
 
 ```vue
 <template>
-  <app-grid :items="posts">
-    <template v-slot="{ item }">
-      <post-item
-        :title="item.title"
-        :content="item.content"
-        :created-at="item.createdAt"
-        @click="goPage(item.id)"
-      >
-      </post-item>
-    </template>
-  </app-grid>
+  <div class="text" :class="{ active: isActive, 'text-danger': hasError }"></div>
 </template>
 ```
 
-### event-bubbling 과 event-capturing
+#### 배열 바인딩
 
-> vue 에서 event 를 bubbling, captuiring 할 때에는 각각 defineProps, defineEmit 으로 사용
+배열에 `:class` 를 바인딩 하여 클래스 목록을 적용할 수 있음
 
 ```vue
+<script>
+const activeClass = ref('active')
+const errorClass = ref('text-danger')
+</script>
+
 <template>
-  <nav class="mt-5" aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" :class="isPrevPage">
-        <a
-          class="page-link"
-          href="#"
-          aria-label="Previous"
-          @click.prevent="$emit('page', currentPage - 1)"
-        >
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      <li
-        v-for="page in pageCount"
-        :key="page"
-        class="page-item"
-        :class="{ active: currentPage === page }"
-      >
-        <a class="page-link" href="#" @click.prevent="$emit('page', page)">{{ page }}</a>
-      </li>
-      <li class="page-item" :class="isNextPage">
-        <a
-          class="page-link"
-          href="#"
-          aria-label="Next"
-          @click.prevent="$emit(`page`, currentPage + 1)"
-        >
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <div :class="[activeClass, errorClass]"></div>
 </template>
+```
 
-<script setup>
-import { computed } from 'vue'
+### 인라인 스타일 바인딩
 
-const props = defineProps({
-  currentPage: {
-    type: Number,
-    required: true
-  },
-  pageCount: {
-    type: Number,
-    required: true
-  }
-})
+HTML style 속성에 객체 값을 바인딩 할 수 있음
 
-defineEmits(['page'])
+```vue
+<script>
+const activeColor = ref('red')
+const fontSize = ref(30)
+</script>
 
-const isPrevPage = computed(() => {
-  return { disabled: !(props.currentPage > 1) }
-})
+<template>
+<div :style="{color: activeColor, fontSize: fontSize + `px`}">
+</template>
+```
 
-const isNextPage = computed(() => {
-  return { disabled: !(props.currentPage < props.pageCount) }
+템플릿이 더 깔끔해지도록 스타일 객체에 직접 바인딩 하는 것이 좋음
+
+```vue
+<script>
+const styleObject = reactive({
+  color: 'red',
+  fontSize: '13px'
 })
 </script>
 
-<style lang="scss" scoped></style>
+<template>
+  <div :style="styleObject"></div>
+</template>
 ```
 
-<br/>
+#### 배열 바인딩
 
-[<< 이전 페이지로 돌아가기](../../README.md)
+`:style` 은 여러 객체 배열에 바인딩 할 수 있음
+
+```vue
+<template>
+  <div :style="[baseStyles, overridingStyles]"></div>
+</template>
+```

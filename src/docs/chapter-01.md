@@ -1,192 +1,190 @@
-### 뷰 라우터 (Vue Router)
+## 반응형 기초
 
-> 뷰 라우터는 Vue.js 를 이용하여 싱글페이지 애플리케이션 (SPA) 을 구현 할 때 사용하는 Vue.js 의 공식 라우터
+### 반응형 상태 선언하기
 
-<br/>
-
-### Router 란?
-
-> 일반적으로 네트워크 간에 데이터를 전송하는 장치
-
-따라서 뷰에서 말하는 라우터는 URL 에 따라 어떤 페이지를 보여줄지 `Mapping` 해주는 라이브러리
-
-(React 의 router 와 같은 개념)
-
-#### 설치방법
-
-```
-npm install vue-router
-```
-
-#### 사용방법
-
-1. router > index.js 파일 생성
-
-2. 파일 내 code 작성
-
-```javascript
-import HomeView from '@/views/HomeView.vue'
-import AboutView from '@/views/AboutView.vue'
-import { createRouter, createWebHistory } from 'vue-router'
-
-const routes = [
-  {
-    path: '/',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    component: AboutView
-  }
-]
-
-/**
- * router 를 생성한다.
- * 해당 router 에는 object 를 갖는데
- * 해당 object 는 history 와 routes 를 갖는다.
- *
- * history 로는 주로 createWebHistory 의 반환값을 받음
- * => 매개변수로 준 router 로 부터의 history
- * routes 는 라우터 목록
- */
-const router = createRouter({
-  history: createWebHistory('/'),
-  routes
-})
-
-// 외부로
-export default router
-```
-
-3. 해당 파일을 ../main.js 에 등록
-
-```javascript
-/**
- * 해당하는 createApp 에 method-chain 을 걸어 use 로 route 값을 등록
- */
-createApp(App).use(router).mount('#app')
-```
-
-4. layouts/TheView.vue 에서 등록 (RouterView)
-
-RouterView 는 vue 에서 제공하는 router 등록 방법
+JavaScript 객체에서 반응형 상태를 생성하기 위해서는 `reactive()` 함수 사용
 
 ```vue
+<script>
+import { reactive } from 'vue'
+
+// 반응형 상태
+const state = reactive({ count: 0 })
+</script>
+```
+
+컴포넌트 `<template>` 에서 반응형 객체를 사용하려면 `setup()` 함수에서 선언하고 리턴해야 함
+
+- 반환된 상태는 반응형 객체임, 반응형 변환은 Deep 함 (깊음)
+- 컴포넌트의 `data()` 에서 객체를 반환할 때, 내부적으로 `reactive()` 에 의한 반응형으로 만들어짐
+
+```vue
+<script>
+import { reactive } from 'vue'
+
+export default {
+  setup() {
+    const state = reactive({ count: 0 })
+
+    return {
+      state
+    }
+  }
+}
+</script>
+
 <template>
-  <main>
-    <div class="container py-4">
-      <!-- RouterView 를 사용하면 해당 routes 에 알맞는 rendering 이 자동으로 적용  -->
-      <RouterView></RouterView>
-    </div>
-  </main>
+  <div>{{ state.count }}</div>
 </template>
 ```
 
-5. 또한 vue 에서는 Next 처럼 자체적인 `<a/>` 를 제공한다.
+<br/>
 
-```html
-<router-link class="nav-link active" to="/">Home</router-link>
-<!-- or -->
-<RouterLink class="nav-link active" to="/">Home</RouterLink>
+### Ref 로 원시값 반응형 데이터 생성하기
+
+`reactive()` 함수는 객체타입에만 동작. 따라서 기본타입 (number, string, boolean) 을 반응형으로 반들고자 할 때 `ref` 사용
+
+```vue
+<script>
+import { ref } from 'vue'
+const count = ref(0)
+</script>
 ```
 
-6. 라우터 내의 정보를 쓰려면 {$route} 로 불러다 쓸 수 있다.
+`ref` 메서드는 mutable 한 객체를 반환, 이 객체 안에는 `value` 라는 하나의 속성만 포함함
+
+`value` 값은 `ref()` 메서드에서 매개변수로 받은 값을 갖고 있음
+
+이 객체는 내부의 `value` 값에 대한 반응형 참조 (referense) 역할을 함
+
+```vue
+<script>
+import { ref } from 'vue'
+
+const count = ref(0)
+console.log(count.value) // 0
+
+count.value++
+console.log(count.value) // 1
+</script>
+```
+
+#### 템플릿에서 사용 시
+
+템플릿에서 사용할 때는 자동으로 내부 값을 풀어내기 때문에 `.value` 로 사용할 필요가 없음
 
 ```vue
 <template>
   <div>
-    <h2>ABOUT VIEW</h2>
-    <p>{{ $route.path }}</p>
+    <span>{{ count }}</span>
+    <button @click="count++">카운트 증가</button>
   </div>
 </template>
-```
 
-```vue
-<script setup>
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
-console.log(route)
-</script>
-```
-
-이런식으로도 출력이 가능하다.
-
-<br/>
-
-### active-class
-
-> router 의 link 에 class 를 추가하고 싶을 때 사용하는 속성
->
-> default 값 === 'router-link-active'
-
-<br/>
-
-### page 내 props 정의하기
-
-`vue` 에서는 페이지 내에 `props` 를 등록하기 위해선 `defineProps()` 를 사용해 주어야한다.
-
-```vue
-<script setup>
-defineProps({
-  title: {
-    type: String,
-    required: true
-  },
-  createdAt: {
-    type: [String, Date, Number]
+<script>
+import { ref } from 'vue'
+export default {
+  setup() {
+    const count = ref(0)
+    return {
+      count
+    }
   }
-})
+}
 </script>
 ```
 
-1. 타입을 명시한다.
-2. 타입이 여러가지 일 때는 배열의 형태로 나타낸다.
-3. 반드시 필요한 값일 경우 required: true
+#### 반응형 객체에서 사용 시
 
-<br/>
+`ref` 가 반응형 객체에서의 속성으로 접근할 때, 자동적으로 내부 값으로 벗겨내서
 
-### 404 Not-Found
-
-Vue.js 는 page-routing 을 할 때 정규식(regex) 을 사용할 수 있는데
-
-해당 정규식 사용방법을 통해 404 page, 중첩 route 에 관하여 라우팅 할 수 있다.
-
-![404-notfound-image](./images/image-01.png)
-
-```vue
-const routes = [ { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundView } ]
-```
-
-<br/>
-
-### 중첩된 라우터 (Nested Router)
-
-> 기존에 있던 component 를 중첩하여 routing 처리 할 때 사용
-
-```vue
-{ path: '/nested', name: 'Nested', component: NestedView, children: [ { path: 'one', name:
-'NestedOne', component: NestedOneView }, { path: 'two', name: 'NestedTwo', component: NestedTwoView
-} ] },
-```
-
-1. 중첩 할 페이지의 route 의 children 으로 구분하여
-2. 해당하는 페이지의 path 정보를 똑같이 추가한다
-3. children 의 path 에 `/` 를 추가하면 절대 경로가 되므로 주의
-
-<br/>
-
-### router.replace
-
-> `router.push` 와 같은 역할을 하지만 유일한 차이는 새로운 히스토리 항목에 추가하지 않고 탐색함
+일반적인 속성과 마찬가지로 동작함
 
 ```vue
 <script>
-router.push({ path: '/home', replace: true })
-router.replace({ path: '/home' })
+const count = ref(0)
+const state = reactive({
+  count
+})
+count.value++
+console.log(count.value) // 1
+console.log(state.count) // 1
 </script>
 ```
 
-<br/>
+#### 배열에서 사용 시
 
-[<< 이전 페이지로 돌아가기](../../README.md)
+반응형과 달리 ref 가 반응형 배열 또는 Map 같은 기본 컬렉션 타입의 요소로 접근 될 때 수행 되는 래핑 해제가 없음
+
+(.value 를 사용해야 한다)
+
+```vue
+<script>
+const books = reactive([ref('Vue 3 Guide')])
+// need .value
+console.log(books[0].value)
+
+const map = reactive(new Map([['count', ref(0)]]))
+// need .value
+console.log(map.get('count').value)
+</script>
+```
+
+### 반응형 상태 구조분해하기 (Destructuring)
+
+큰 반응형 객체의 몇몇 속성을 사용하길 원할 때, 원하는 속성을 얻기 위해 ES6 구조분해할당을 사용하는건 일반적임
+
+```vue
+<script>
+import { reactive } from 'vue'
+
+const book = reactive({
+  author: 'Vue Team',
+  year: '2020',
+  title: 'Vue 3 Guide',
+  description: '당신은 책을 읽는 중',
+  price: '무료'
+})
+
+let { author, title } = book
+</script>
+```
+
+대신 구조분해로 인해 반응형을 잃게 됨
+
+이럴 때에는 반응형 객체의 일련의 ref 들로 변환 해야 됨
+
+`ref` 는 소스객체에 대한 반응형 연결을 유지함
+
+`toRefs`, `toRef` 을 사용하면 반응ㅎ형 객체의 속성과 동기화가 됨
+
+```vue
+<script>
+import { reactive, toRefs } from 'vue'
+
+const book = reactive({
+  author: 'vue team',
+  year: '2020',
+  title: 'vue 3 guide'
+})
+
+let { author, title } = toRefs(book)
+title.value = 'vue 3 상세 가이드'
+console.log(book.title)
+</script>
+```
+
+### readonly 를 이용한 반응형 객체 수정 방지
+
+반응형 객체의 변화를 추적하지 않으려면 (동기화 하지 않으려면) `readonly` 를 활용하여 막음
+
+```vue
+<script>
+import { reactive, readonly } from 'vue'
+const original = reactive({ count: 0 })
+const copy = readonly(original)
+
+original.count++ // success
+copy.count++ // error occured !!
+</script>
+```

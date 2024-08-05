@@ -1,58 +1,107 @@
-### Transition
+## 조건부 랜더링
 
-> vue 에서는 `transition` 이나 `Animations` 를 쉽게 조작 할 수 있도록 내장된 컴포넌트를 제공
-
-- `<Transition>` : 컴포턴트가 DOM 에 나타나고 사라질 때 애니메이션을 적용하기 위해 사용하는 컴포넌트
-- `<TransitionGroup>` : 컴포넌트가 `v-for` 목록에 삽입, 제거 또는 이동할 때 애니메이션을 적용하기 위해 사용하는 컴포넌트
-
-<br/>
-
-#### Transition Component
-
-> `default slot` 을 통해 전달 된 컴포넌트가 나타나거나 (enter) 사라질 때 (leave) 애니메이션을 적용하는데 사용
-
-입장(enter) 퇴장(leave) 는 다음 중 하나에 의해 트리거 될 수 있음
-
-- `v-if` 를 통한 조건부 렌더링
-- `v-show` 를 통한 조건부 표시
-- `<component>` 라는 특수한 엘리먼트를 통한 동적 컴포넌트 Toggle
+- `v-if` : 조건부로 블록을 랜더링
 
 ```vue
 <template>
-  <button @click="show = !show">Toggle</button>
-  <Transition>
-    <p v-if="show">hello</p>
-  </Transition>
+  <h1 v-if="visible">HELLO VUE3</h1>
 </template>
 ```
 
-<br/>
-
-#### Teleport
-
-> vue 에서 제공하는 내장 기술로 하위 컴포넌트를 특정 위치로 재위치 시켜주는 역할을 함
-
-1. `modal` 을 만들때 주로 사용함
-2. 이동할 곳을 `to` props 에 작성
+- `v-else` : `v-if` 가 **FALSE** 일 때 랜더링 하는 랜더링 블록
 
 ```vue
 <template>
-  <teleport to="#modal">
-    <Modal />
-  </teleport>
+  <h1 v-if="visible">HELLO VUE3</h1>
+  <h1 v-else>GOOD BYE</h1>
 </template>
 ```
 
-```html
-<body>
-  <div id="app"></div>
-  <div id="modal"></div>
-  <script type="module" src="/src/main.js"></script>
-</body>
+- `v-else-if` : 여러 조건 블록
+
+```vue
+<template>
+  <h1 v-if="type === 'A'">A</h1>
+  <h1 v-else-if="type === 'B'">B</h1>
+  <h1 v-else-if="type === 'C'">C</h1>
+  <h1 v-else>Not A/B/C</h1>
+</template>
 ```
 
-![modal-image](./images/image-02.png)
+- `v-show` : 요소를 조건부로 표시
+
+```vue
+<template>
+  <h1 v-show="show">TITLE</h1>
+  <button @click="show = !show">TOGGLE SHOW</button>
+</template>
+```
+
+### v-if vs v-show
+
+`v-if`는 "실제" 로 rendering 되는 반면 전환할 때 블록 내부의 컴포넌트들이 제거되고 다시 생성되기 떄문
+
+또한 `v-if` 는 **게으름**. 초기 랜더링 시 , 조건이 false 면 아무 작업도 하지 않음
+
+이에 비해 `v-show` 는 훨씬 간단함
+
+엘리먼트는 CSS 기반 전환으로 초기 조건과 관게없이 항상 랜더링
+
+일반적으로 `v-if` 는 전환 비용이 높은 반면, `v-show` 는 초기 랜더링 비용이 높음
+
+그러므로 무언가를 자주 전환해야 한다면 `v-show` 런타임시 조건이 변경이 잘 없다면 `v-if`
 
 <br/>
 
-[<< 이전 페이지로 돌아가기](../../README.md)
+### v-if 와 v-for
+
+> TIP
+>
+> `v-if` 와 `v-for` 를 함께 쓰는건 권장하지 않음
+
+동일한 엘리먼트에서 `v-if` 와 `v-for` 를 함께 사용할 때, `v-if` 가 더 높은 우선순위를 가짐
+
+의도한대로 동작하지 않을 가능성이 높음
+
+<br/>
+
+## 목록 랜더링
+
+### v-for
+
+`v-for` 를 사용하여 배열인 목록을 랜더링 할 수 있음
+
+```vue
+<script>
+const items = reactive([
+  { id: 1, message: 'JAVA' },
+  { id: 2, message: 'HTML' },
+  { id: 3, message: 'CSS' },
+  { id: 4, message: 'JavaScript' }
+])
+</script>
+
+<template>
+  <li v-for="(item, index) in items" :key="item.id">
+    {{ item.message }}
+  </li>
+</template>
+```
+
+- `v-for="item in items"` 문법을 사용해 배열에서 항목을 순차적으로 할당
+- `v-for="(item, index) in items"` 문법을 사용해 배열 인덱스를 가져올 수 있음
+- 항목을 나열 할 시 `:key` 속성에 고유한 키 값 지정 필수
+
+```vue
+<script>
+const myObject = reactive({
+  title: '제목입니다.',
+  author: '홍길동',
+  publishedAt: '2024'
+})
+</script>
+
+<template>
+  <li v-for="(value, key, index) in myObject" :key="key">{{ key }} - {{ value }} - {{ index }}</li>
+</template>
+```

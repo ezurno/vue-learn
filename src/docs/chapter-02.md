@@ -1,43 +1,108 @@
-### History Mode
+## Computed
 
-> vue 에서는 `router` 인스턴스를 생성할 때 `history` 옵션으로 다양한 history-mode 중 에서 선택이 가능함
+템플릿 문법 `{{}}` 을 사용하면 매우 편리하지만 템플릿 표현식 내 코드가 길어질 경우 가독성이 떨어지고 유지보수가 어려워짐
 
-기본적으로 알고 있는 router-mode
-
-1. 페이지를 요청 할 때 각 url 에 일치하는 파일 위치에 index 파일이 랜더링 됨
-2. 각 페이지 마다 request-url 이 따로 존재함
-3. SEO 에 최적화
-
-- Hash - `createWebHashHistory()`
-- History - `createWebHistory()`
-- Memory - `createMemoryHistory()`
-
-```javascript
-const router = createRouter({
-  history: createWebHistory(),
-  routes
+```vue
+<script>
+const teacher = reactive({
+  name: "lee junmo",
+  leactures: {
+    "HTML/CSS",
+    "JavaScript",
+    "TypeScript",
+    "React",
+  }
 })
+</script>
 ```
 
-### Hash Mode
+이런 식이 있을 경우
 
-> Vue Router 을 통해 URL 로 페이지를 전환 할 때 히스토리 관련 기법으로 # (해시) 형으로 쓸 수 있게 해줌
+```vue
+<template>
+  <p>강의가 존재합니까?</p>
+  <span>{{ teacher.leactures.length > 0 ? 'Yes' : 'No' }}</span>
+</template>
+```
 
-`createWebHashHistory()` 를 통해 사용이 가능
+템플릿 표현식이 너무나도 길어 가독성이 떨어진다
 
-1. 해시모드에서는 # 뒤로는 요청하지 않는다.
-2. ex) `localhost:3000/#/nested/two` => `localhost:3000` 가 request-url 임
-3. 웹에서 url 로 접근 할 때에는 해당 route 에 일치하는 값이 index 파일로 존재해야 정상적으로 배포가 가능함
-4. hash mode 에서는 요청 자체를 localhost:3000 에 하기 때문에 index 를 각각 만들지 않아도 배포가 가능
-5. SEO 가 잘 되지 않는 치명적인 단점이 존재함
+따라서 이럴 때 사용하는 것이 `computed` (계산된 속성)
 
-```javascript
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes
-})
+```vue
+<script>
+const hasLecture = computed(() => (teacher.lectures.length > 0 ? 'Yes' : 'No'))
+</script>
+
+<template>
+  <p>강의가 존재 합니까?</p>
+  <span>{{ hasLecture }}</span>
+</template>
 ```
 
 <br/>
 
-[<< 이전 페이지로 돌아가기](../../README.md)
+### Computed vs Method
+
+그럼 메서드와 계산된 속성은 뭐가 다를까?
+
+아래와 같이 사용하면 `method` 도 `computed` 와 동일한 효과를 얻을 수 있다.
+
+```vue
+<script>
+// in component
+function existLecture() {
+  return teacher.lectures.length > 0 ? 'Yes' : 'No'
+}
+</script>
+
+<template>
+  <p>{{ existLecture() }}</p>
+</template>
+```
+
+이렇게 하면 동일한 결과를 얻을 수는 있지만 차이점이 존재한다.
+
+`computed` 는 결과가 캐싱 된다는 것
+
+또한 `computed` 에 사용 된 반응형 데이터가 변경된 경우에는 다시 계산이 됨
+
+- `Computed` 는 캐싱 됨
+- `Method` 는 파라미터가 올 수 있음
+- 컴포넌트 랜더링 시 `computed` 는 비용이 적게 들음
+
+<br/>
+
+### Writable Computed
+
+Computed 는 기본적으로 getter 전용. 계산된 속성에 새 값을 할당하려고 하면 런터임 경고가 표시
+
+하지만 새로운 계산된 속성이 필요할 경우에 getter 와 setter 를 모두 제공하여 속성을 만들 수 있음
+
+```vue
+<script>
+import { computed, ref } from 'vue'
+export default {
+  setup() {
+    const firstName = ref('홍')
+    const lastName = ref('길동')
+
+    const fullName = computed({
+      get() {
+        return firstName.value + ' ' + lastName.value
+      },
+      set(newValue) {
+        ;[firstName.value, lastName.value] = newValue.split(' ')
+      }
+    })
+
+    fullName.value = '안녕 하세요'
+    return {
+      firstName,
+      lastName,
+      fullName
+    }
+  }
+}
+</script>
+```
