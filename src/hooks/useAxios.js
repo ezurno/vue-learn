@@ -24,7 +24,7 @@ export const useAxios = (url, config = {}, options = {}) => {
     data.value = null
     error.value = null
     loading.value = true
-    axios(url, {
+    axios(unref(url), {
       ...defaultConfig,
       ...config,
       params: unref(params),
@@ -54,7 +54,7 @@ export const useAxios = (url, config = {}, options = {}) => {
    * 따라서 컴포지블 함수를 사용할 때 넘기는 방식이 반응형으로 넘기는지, object 로 넘기는지에 따라
    * 달라질 수 있다. 따라서 두가지를 다 대응해야 한다.
    */
-  if (isRef(params)) {
+  if (isRef(params) || isRef(url)) {
     watchEffect(execute)
   } else {
     if (immediate) {

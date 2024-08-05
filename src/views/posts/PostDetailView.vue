@@ -3,6 +3,7 @@
   <app-error v-else-if="error" :message="error.message" />
   <div v-else>
     <h2>{{ post.title }}</h2>
+    <p>id: {{ props.id }}, isOdd: {{ isOdd }}</p>
     <p>{{ post.content }}</p>
     <p class="text-muted">{{ $dayjs(post.createdAt).format('YYYY. MM. DD HH:mm:ss') }}</p>
     <hr class="my-4" />
@@ -40,6 +41,9 @@ import AppLoading from '@/components/app/AppLoading.vue'
 import AppError from '@/components/app/AppError.vue'
 import { useAxios } from '@/hooks/useAxios'
 import { useAlert } from '@/composables/alert'
+import { computed } from 'vue'
+import { useNumber } from '@/composables/number'
+import { toRef } from 'vue'
 
 const { vAlert, vSuccess } = useAlert()
 const router = useRouter()
@@ -47,7 +51,11 @@ const router = useRouter()
 const props = defineProps({
   id: [Number, String]
 })
-const { error, loading, data: post } = useAxios(`/posts/${props.id}`)
+const idRef = toRef(props, 'id')
+// props 의 id 값을 추출, 대신 반응형을 잃지 않게,
+const { isOdd } = useNumber(idRef)
+const url = computed(() => `/posts/${props.id}`)
+const { error, loading, data: post } = useAxios(url)
 const {
   error: removeError,
   loading: removeLoading,

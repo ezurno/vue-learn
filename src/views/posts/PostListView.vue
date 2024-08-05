@@ -17,6 +17,7 @@
             :createdAt="item.createdAt"
             @click="goPage(item.id)"
             @modal="openModal(item)"
+            @preview="selectPreview(item.id)"
           />
         </template>
       </app-grid>
@@ -36,10 +37,10 @@
       :page-count="pageCount"
       @page="(page) => (params._page = page)"
     />
-    <template v-if="posts && posts.length > 0">
+    <template v-if="previewId">
       <hr class="my-5" />
       <app-card>
-        <post-detail-view :id="3"></post-detail-view>
+        <post-detail-view :id="previewId"></post-detail-view>
         <!-- <PostDetailView :id="2"></PostDetailView> -->
       </app-card>
     </template>
@@ -69,7 +70,9 @@ const params = ref({
   _limit: 3,
   title_like: null
 })
+const previewId = ref(null)
 const { data: posts, error, loading, response: totalCount } = useAxios('/posts', { params })
+const selectPreview = (id) => (previewId.value = id)
 
 // pagination
 const pageCount = computed(() => Math.ceil(totalCount.value / params.value._limit))
