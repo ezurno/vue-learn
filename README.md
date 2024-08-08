@@ -32,3 +32,11 @@
 - [Non-Prop 속성 (Fallthrough) >>](src/docs//chapter-14.md)
 - [Slots >>](src/docs//chapter-15.md)
 - [Provide / inject >>](src/docs//chapter-16.md)
+- [Life-Cycle Hooks >>](src/docs//chapter-17.md)
+- [Template refs >>](src/docs//chapter-18.md)
+- [Script setup >>](src/docs//chapter-19.md)
+- [Vue Router >>](src/docs//chapter-20.md)
+
+### 학습 강의 및 참고자료
+
+[짐코딩 Vue.js 3 완벽 마스터 : 기초부터 실전까지](https://www.inflearn.com/course/vue-%EC%99%84%EB%B2%BD-%EC%8B%A4%EC%A0%84)

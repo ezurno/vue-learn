@@ -179,3 +179,7 @@ App-Level 에서 Provide 는 앱에서 렌더링 되는 모든 컴포넌트에�
 Vue2 에서 컴포넌트 인스턴스 객체를 추가할 때 global property 에 추가했으나 Vue3 에서 Composition API Setup 함수에서는 컴포넌트 인스턴스에 접근할 수 없음
 
 이때 대신 Provide/Inject 를 사용할 수 있음
+
+<br/>
+
+[<< 이전 페이지로 돌아가기](../../README.md)

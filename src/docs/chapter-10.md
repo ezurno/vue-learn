@@ -147,3 +147,7 @@ export default {
 `Single-File Component(SFC)` 에서 기본 HTML 요소와 구분하기 위해 자식 컴포넌트에 PascalCase 이름을 사용하는 것이 좋음
 
 기본 HTML 태그 이름은 대소문자를 수분하지 않지만 Vue SFC 는 컴파일된 형식이므로 대소문자 구분 태그 이름을 사용할 수 있음
+
+<br/>
+
+[<< 이전 페이지로 돌아가기](../../README.md)
