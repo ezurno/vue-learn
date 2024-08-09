@@ -11,6 +11,7 @@ import 'bootstrap/dist/js/bootstrap.js'
 import focus from './directives/focus'
 import globalDirectives from './plugins/global-directives'
 import dayjs from './plugins/dayjs'
+import { createPinia } from 'pinia'
 
 /**
  * 해당하는 createApp 에 method-chain 을 걸어 use 로 route 값을 등록
@@ -23,4 +24,5 @@ createApp(App)
   .use(objPlugins, { name: 'TEST' })
   .use(person)
   .use(router)
+  .use(createPinia())
   .mount('#app')

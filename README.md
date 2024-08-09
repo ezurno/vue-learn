@@ -43,6 +43,12 @@
 - [Custom Directives >>](src/docs//chapter-25.md)
 - [Composables >>](src/docs//chapter-26.md)
 - [toRef & toRefs >>](src/docs//chapter-27.md)
+- [isRef, unref, isProxy, isReactive, isReadonly >>](src/docs//chapter-28.md)
+- [상태관리란 >>](src/docs//chapter-29.md)
+- [Store & State >>](src/docs//chapter-30.md)
+- [Getters >>](src/docs//chapter-31.md)
+- [Actions >>](src/docs//chapter-32.md)
+- [Plugins >>](src/docs//chapter-33.md)
 
 ### 학습 강의 및 참고자료
 
