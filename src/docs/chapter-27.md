@@ -1,4 +1,4 @@
-### toRef
+## toRef
 
 반응형 객체의 속성을 하나의 ref 객체로 만들 때 사용
 
@@ -31,7 +31,7 @@ const fooRef = ref(state.foo)
 
 위의 ref 객체는 프리미티브 값을 초기화 값을 ㅗ받기 때문에 `state.foo` 와 동기화가 되지 않음
 
-#### toRef 활용
+### toRef 활용
 
 `toRef()` 는 Composable 함수에 Props 참조를 전달하려는 경우에 유용함
 
@@ -53,7 +53,7 @@ ref 에 새 값을 할당하려는 시도는 props 를 직접 수정하는 것�
 
 <br/>
 
-### toRefs
+## toRefs
 
 반응형 객체를 구조분해 할당 후 반응형을 그대로 유지하고 싶을 때 사용함
 
@@ -93,7 +93,7 @@ console.log(x.value, y.value) // 1 1
 console.log(position.x, position.y) // 1 1
 ```
 
-#### toRefs 의 활용
+### toRefs 의 활용
 
 `toRefs()` 는 일반 함수나 `Composable` 함수에서 `Reactive` 객체르 반환받는 경우에 유용
 

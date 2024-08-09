@@ -36,6 +36,13 @@
 - [Template refs >>](src/docs//chapter-18.md)
 - [Script setup >>](src/docs//chapter-19.md)
 - [Vue Router >>](src/docs//chapter-20.md)
+- [Navigation Guard >>](src/docs//chapter-21.md)
+- [Transition & TransitionGroup >>](src/docs//chapter-22.md)
+- [Teleport >>](src/docs//chapter-23.md)
+- [Plugins >>](src/docs//chapter-24.md)
+- [Custom Directives >>](src/docs//chapter-25.md)
+- [Composables >>](src/docs//chapter-26.md)
+- [toRef & toRefs >>](src/docs//chapter-27.md)
 
 ### 학습 강의 및 참고자료
 
